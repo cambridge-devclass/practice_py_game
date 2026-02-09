@@ -1,0 +1,29 @@
+# Ignore Python virtual environment directories
+venv/
+.venv/
+env/
+ENV/
+pyvenv/
+
+# Environment variable files
+.env
+.env.local
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Test / cache
+.pytest_cache/
+.mypy_cache/
+
+# IDEs
+.vscode/
+.idea/
