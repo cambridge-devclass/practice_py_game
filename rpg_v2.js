@@ -1,6 +1,5 @@
-
-const WIDTH = 800;
-const HEIGHT = 600;
+const WIDTH = 600;
+const HEIGHT = 450;
 
 const BG_COLOR = "#b2c88e";
 const TRADER_COLOR = "#928762";
@@ -17,23 +16,22 @@ const imageSources = {
   dagger: "assets/dagger_01_50.png"
 };
 
-let loaded = 0;
+let imagesLoaded = 0;
 for (const key in imageSources) {
   images[key] = new Image();
   images[key].src = imageSources[key];
   images[key].onload = () => {
-    loaded++;
-    if (loaded === Object.keys(imageSources).length) {
-      loop();
+    imagesLoaded++;
+    if (imagesLoaded === Object.keys(imageSources).length) {
+      draw();
     }
   };
 }
 
 // ---- Player ----
 const player = {
-  x: 400,
-  y: 350,
-  size: 20,
+  x: 300,
+  y: 300,
   gold: 10,
   apple: 0,
   dagger: 0
@@ -41,125 +39,125 @@ const player = {
 
 // ---- Traders ----
 const traders = [
-  { type: "apple", x: 250, y: 200, stock: 6 },
-  { type: "dagger", x: 550, y: 200, stock: 4 }
+  { type: "apple", x: 200, y: 200, stock: 6 },
+  { type: "dagger", x: 400, y: 200, stock: 4 }
 ];
 
-// ---- Input ----
-const keys = {};
-window.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
-window.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
+// ---- UI message ----
+let statusMessage = "";
 
 // ---- Helpers ----
 function distance(a, b) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }
+function getNearTrader() {
+  for (const t of traders) {
+    if (distance(player, t) < 80) {
+      return t;
+    }
+  }
+  return null;
+}
 
-// ---- UI ----
+// ---- Drawing ----
+function draw() {
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+  ctx.fillStyle = BG_COLOR;
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+  drawTraders();
+  drawPlayer();
+  drawUI();
+  drawMessage();
+}
+
+function drawPlayer() {
+  ctx.drawImage(images.player, player.x - 16, player.y - 16, 32, 32);
+}
+
+function drawTraders() {
+  traders.forEach(t => {
+    const dist = distance(player, t);
+
+    if (dist < 80) {
+      nearTrader = true;
+      ctx.fillStyle = TRADER_COLOR_OUTLINE;
+      ctx.fillRect(t.x - 60, t.y - 50, 120, 100);
+    }
+
+    ctx.fillStyle = TRADER_COLOR;
+    ctx.fillRect(t.x - 50, t.y - 40, 100, 80);
+
+    // Stock items
+    for (let i = 0; i < t.stock; i++) {
+      const col = i % 5;
+      const row = Math.floor(i / 5);
+      const x = t.x - 30 + col * 15;
+      const y = t.y + row * 17;
+      ctx.drawImage(images[t.type], x - 8, y - 8, 16, 16);
+    }
+  });
+}
+
 function drawUI() {
   ctx.fillStyle = "black";
   ctx.font = "14px Arial";
+  ctx.fillText("WASD: Move, E: Trade", 10, 20);
   ctx.fillText(
-    `WASD: Move, E: Trade`,
-    10, 20
-  );
-  ctx.fillText(
-    `Player Gold: ${player.gold} | Apples: ${player.apple} | Daggers: ${player.dagger}`,
+    `Gold: ${player.gold} | Apples: ${player.apple} | Daggers: ${player.dagger}`,
     10, 40
   );
 }
 
-// ---- Traders ----
-function drawTraders() {
-  let greeting = false;
-
-  traders.forEach(t => {
-    const dist = distance(player, t);
-
-    // Outline when close
-    if (dist < 130) {
-      greeting = true;
-      ctx.fillStyle = TRADER_COLOR_OUTLINE;
-      ctx.fillRect(t.x - 80, t.y - 60, 160, 120);
-    }
-
-    // Trader body
-    ctx.fillStyle = TRADER_COLOR;
-    ctx.fillRect(t.x - 70, t.y - 50, 140, 100);
-
-    // Items
-    for (let i = 0; i < t.stock; i++) {
-      const col = i % 5;
-      const row = Math.floor(i / 5);
-      const x = t.x - 40 + col * 20;
-      const y = t.y + row * 20;
-
-      ctx.drawImage(images[t.type], x - 8, y - 8, 16, 16);
-    }
-  });
-
-  document.title = greeting ? "Hello traveller" : "Trading Hub RPG";
+function drawMessage() {
+  if (statusMessage) {
+    ctx.textAlign = "right";
+    ctx.font = "16px Arial";
+    ctx.fillText(statusMessage, WIDTH - 10, 20);
+    ctx.textAlign = "left"; // reset
+  }
 }
 
 // ---- Movement ----
 function move(dx, dy) {
   player.x += dx;
   player.y += dy;
+
+  // Auto greeting
+  const nearTrader = getNearTrader();
+  statusMessage = nearTrader ? "Hello traveller" : "";
+  draw();
 }
 
 // ---- Interaction ----
 function buy(trader) {
-  const price = 1;
-  document.title = "Trading is not implemented yet!";
+  statusMessage = "Trading is not implemented yet!";
+  console.log('Attempting to trade, trader:', trader);
+  // Complete the trade logic below. 
+  // Keep the line "draw()" at the end of the function - 
+  // - it updates the screen when inventory is changed.
 
-  // (stub for future trade logic)
-
-  drawUI();
+  draw();
 }
 
-// ---- Update ----
-function update() {
-  if (keys["w"]) move(0, -5);
-  if (keys["s"]) move(0, 5);
-  if (keys["a"]) move(-5, 0);
-  if (keys["d"]) move(5, 0);
+// ---- Input ----
+function onKeydown(e) {
+  const key = e.key.toLowerCase();
 
-  if (keys["e"]) {
-    for (const t of traders) {
-      if (distance(player, t) < 130) {
-        buy(t);
-        keys["e"] = false;
-        return;
-      }
+  if (key == "w") move(0, -10);
+  else if (key == "s") move(0, 10);
+  else if (key == "a") move(-10, 0);
+  else if (key == "d") move(10, 0);
+  else if (key == "e") {
+    const nearTrader = getNearTrader();
+    if (nearTrader) {
+      buy(nearTrader);
+    } else {
+      statusMessage = "No trader nearby";
+      console.log('Attempting to trade: ', statusMessage);
+      drawMessage();
     }
-    document.title = "No trader nearby";
-    keys["e"] = false;
   }
 }
-
-// ---- Draw ----
-function draw() {
-  // Background
-  ctx.fillStyle = BG_COLOR;
-  ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-  drawTraders();
-
-  // Player
-  ctx.drawImage(
-    images.player,
-    player.x - 16,
-    player.y - 16,
-    32,
-    32
-  );
-
-  drawUI();
-}
-
-// ---- Game Loop ----
-function loop() {
-  update();
-  draw();
-  requestAnimationFrame(loop);
-}
+window.addEventListener("keydown", onKeydown);
