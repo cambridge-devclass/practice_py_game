@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Trading Hub RPG</title>
+    <style>
+      body {
+        margin: 0;
+        background: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+      }
+
+      #gameWrap {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        border: 2px solid #222;
+      }
+
+      canvas {
+        display: block;
+      }
+
+      #ui {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        pointer-events: none;
+      }
+
+      .panel {
+        width: 23rem;
+        pointer-events: auto;
+        margin-bottom: 0.2rem;
+      }
+
+      #statusMsg {
+        margin-top: 4px;
+        min-height: 16px;
+        font-size: 16px;
+        color: #333;
+      }
+    </style>
+    <script src="game_v2.js" defer></script>
+    <script src="game_v2_helpers.js" defer></script>
+  </head>
+  <body>
+    <div id="gameWrap">
+      <canvas id="game" width="800" height="600"></canvas>
+
+      <div id="ui">
+        <div class="panel">
+          <span>WASD: Move</span>, <span>E: Trade</span>, <span>T: Talk</span>
+        </div>
+
+        <div class="panel">
+          <strong>Player:</strong>
+          <span id="goldEl"></span>,
+          <span id="appleEl"></span>,
+          <span id="daggerEl"></span>,
+          <span id="flowerEl"></span>
+        </div>
+
+        <div class="panel">
+          <strong>Trader:</strong>
+          <span id="traderStockEl"></span>
+          <div id="statusMsg"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

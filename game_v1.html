@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trading Hub RPG | Cambridge_DevClass</title>
+  <style>
+    body {
+      margin: 0;
+      background: #222;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #gameWrap {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 2px solid #333;
+    }
+
+    canvas {
+      display: block;
+      background: #b2c88e;
+    }
+
+    #ui {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      pointer-events: none;
+    }
+
+    .panel {
+      /*
+      background: rgba(255, 255, 255, 0.92);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 220px;
+      */
+      width: 20rem;
+      pointer-events: auto;
+      margin-bottom: 0.2rem;
+    }
+
+    #tradeMsg {
+      margin-top: 6px;
+      min-height: 16px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameWrap">
+    <canvas id="game" width="800" height="600"></canvas>
+
+    <div id="ui">
+      <div class="panel">
+        <span>WASD: Move</span>,
+        <span>E: Buy</span>,
+        <span>R: Sell</span>,
+        <span>T: Talk</span>
+      </div>
+
+      <div class="panel">
+        <strong>Player:</strong>
+        <span id="gold"></span>,
+        <span id="apples"></span>,
+        <span id="daggers"></span>
+      </div>
+
+      <div class="panel">
+        <strong>Trader:</strong>
+        <span id="appleTraderStock"></span>
+        <span id="daggerTraderStock"></span>
+        <div id="tradeMsg"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game_v1.js"></script>
+  <script src="game_v1_apple.js"></script>
+  <script src="game_v1_dagger.js"></script>
+  <script src="game_v1_helpers.js"></script>
+</body>
+</html>

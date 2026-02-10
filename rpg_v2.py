@@ -13,7 +13,7 @@ canvas = tk.Canvas(root, width=WIDTH, height=HEIGHT, bg=BG_COLOR)
 canvas.pack()
 
 images = {
-    "player": tk.PhotoImage(file="assets/player_01_128.png"),
+    "player": tk.PhotoImage(file="assets/player_01_128_3.png"),
     "apple": tk.PhotoImage(file="assets/apple_01_32.png"),
     "dagger":  tk.PhotoImage(file="assets/dagger_01_50.png"),
 }
