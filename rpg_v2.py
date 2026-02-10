@@ -15,7 +15,7 @@ canvas.pack()
 images = {
     "player": tk.PhotoImage(file="assets/player_01_128.png"),
     "apple": tk.PhotoImage(file="assets/apple_01_32.png"),
-    "dagger":  tk.PhotoImage(file="assets/gem_05_30.png"),
+    "dagger":  tk.PhotoImage(file="assets/dagger_01_50.png"),
 }
 
 # ---- Player ----
