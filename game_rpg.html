@@ -5,6 +5,7 @@
     <title>Trading Hub RPG</title>
     <style>
       body {
+        font-size: 14px;
         margin: 0;
         background: #333;
         display: flex;
@@ -16,9 +17,28 @@
 
       #gameWrap {
         position: relative;
-        width: 800px;
+        width: 950px;
         height: 600px;
         border: 2px solid #222;
+      }
+
+      #questsPanel {
+        position: absolute;
+        top: 7rem;
+        left: 20px;
+        font-size: 12px;
+        pointer-events: none;
+        min-width: 140px;
+      }
+
+      #questsPanel strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+
+      #questsPanel li {
+        margin: 2px 0;
       }
 
       canvas {
@@ -33,7 +53,7 @@
       }
 
       .panel {
-        width: 23rem;
+        width: 50rem;
         pointer-events: auto;
         margin-bottom: 0.2rem;
       }
@@ -45,16 +65,24 @@
         color: #333;
       }
     </style>
-    <script src="game_v2.js" defer></script>
-    <script src="game_v2_helpers.js" defer></script>
+    <script src="game_rpg_quests.js" defer></script>
+    <script src="game_rpg_trade.js" defer></script>
+    <script src="game_rpg_speak.js" defer></script>
+    <script src="game_rpg_apple.js" defer></script>
+    <script src="game_rpg_dagger.js" defer></script>
+    <script src="game_rpg_helpers.js" defer></script>
   </head>
   <body>
     <div id="gameWrap">
-      <canvas id="game" width="800" height="600"></canvas>
+      <canvas id="game" width="950" height="600"></canvas>
+      <div id="questsPanel">
+        <strong>Quests:</strong>
+        <div id="questsList"></div>
+      </div>
 
       <div id="ui">
         <div class="panel">
-          <span>WASD: Move</span>, <span>E: Trade</span>, <span>T: Talk</span>
+          <span>WASD: Move</span>, <span>E: Buy</span>, <span>R: Sell</span>, <span>T: Talk</span>
         </div>
 
         <div class="panel">
@@ -62,7 +90,14 @@
           <span id="goldEl"></span>,
           <span id="appleEl"></span>,
           <span id="daggerEl"></span>,
-          <span id="flowerEl"></span>
+          <!--
+          <span id="flowerEl"></span>,
+          <span id="carrotEl"></span>,
+          <span id="acornEl"></span>,
+          -->
+          <span id="mushroomEl"></span>,
+          <span id="twigEl"></span>,
+          <span id="onionEl"></span>
         </div>
 
         <div class="panel">

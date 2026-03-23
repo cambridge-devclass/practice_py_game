@@ -1,5 +1,4 @@
 "use strict";
-console.log("Welcome to the game 👋");
 
 // ---- Player ----
 let playerGold = 10;
@@ -9,18 +8,18 @@ let playerApples = 0;
 let traderApples = 7;
 
 
-// ---- Interactions ----
+// ---- Apple Trader ----
 function buyApple() {
   const price = 1;
 
   // Complete the trade logic below:
-  // * Make changes to playerGold, playerApples and traderApples variables.
+  // * Make changes to player and trader properties.
   // * The screen will be updated for you, don't worry about drawing logic -
   // - it is done inside updateUI() and draw() functions
-  // - don't remove this functions from buyApple().
+  // - don't remove these functions from buyApple().
 
 
-  tradeMsgEl.textContent = "Trading is not implemented yet!";
+  statusMessage = "You bought an apple!";
   updateUI();
   draw();
 }

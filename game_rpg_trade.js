@@ -2,32 +2,24 @@
 console.log("Welcome to the game 👋");
 
 // ---- Player ----
+// let playerGold = 10; // Initialized in game_v1_apple.js
+
 const player = {
   x: 400,
   y: 350,
-  gold: 10,
-  apple: 0,
-  dagger: 0,
-  flower: 0
+  onion: 0,
+  mushroom: 0,
+  twig: 0,
 };
 
 // ---- Traders ----
 const traders = [
-  { type: "apple", x: 270, y: 220, stock: 6 },
-  { type: "dagger", x: 400, y: 220, stock: 4 },
-  { type: "flower", x: 530, y: 220, stock: 3 }
+  { type: "onion", stock: 5 },
+  { type: "mushroom", stock: 3 },
+  { type: "twig", stock: 4 },
 ];
 
-// ---- Speech ----
-function birdSpeech() {
-  return "Hi!";
-}
 
-function playerSpeech() {
-  return "Hi there!";
-}
-
-// ---- Interaction ----
 function buy(trader) {
   statusMessage = "Trading is not implemented yet!";
   console.log('Attempting to trade, trader:', trader);
@@ -43,4 +35,16 @@ function buy(trader) {
 
   updateUI();
   draw();
+}
+
+
+// ---- Speech ----
+function birdSpeech() {
+  // When approaching the bird
+  return "Hi!";
+}
+
+function playerSpeech() {
+  // When pressing "T"
+  return "Hi there!";
 }
