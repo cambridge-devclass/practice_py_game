@@ -27,9 +27,12 @@ const statusMsgEl = document.getElementById("statusMsg");
 
 // ---- Images ----
 const images = {};
-images.player = new Image();
-images.player.onload = draw;
-images.player.src = "assets/player_01_128_3.png";
+images.playerBody = new Image();
+images.playerBody.onload = draw;
+images.playerBody.src = "assets/player_body_3.png";
+images.playerArmL = new Image();
+images.playerArmL.onload = draw;
+images.playerArmL.src = "assets/player_arm_l.png";
 images.apple = new Image();
 images.apple.onload = draw;
 images.apple.src = "assets/apple_01_32.png";
@@ -175,9 +178,29 @@ function draw() {
   }
 }
 
+let playerArmAngle = 0;
+
+function playerRotateArm(degrees) {
+  playerArmAngle = degrees;
+  draw();
+}
+
 function drawPlayer() {
   const playerWidth = 60;
-  ctx.drawImage(images.player, playerDraw.x - playerWidth * 0.5, playerDraw.y - playerWidth * 0.5, playerWidth, playerWidth);
+  const cx = playerDraw.x;
+  const cy = playerDraw.y;
+  ctx.drawImage(images.playerBody, cx - playerWidth * 0.5, cy - playerWidth * 0.5, playerWidth, playerWidth);
+  const armH = playerWidth * 0.36;
+  const armDX = 15;
+  const armDY = -3;
+  const armW = armH * (images.playerArmL.naturalWidth / images.playerArmL.naturalHeight);
+  const pivotX = cx + armDX + armH * 0.1;
+  const pivotY = cy + armDY + armH * 0.1;
+  ctx.save();
+  ctx.translate(pivotX, pivotY);
+  ctx.rotate(playerArmAngle * Math.PI / 180);
+  ctx.drawImage(images.playerArmL, -armH * 0.1, -armH * 0.1, armW, armH);
+  ctx.restore();
 }
 
 function getStock(type) {
@@ -300,6 +323,9 @@ function onKeydown(e) {
       updateUI();
     }
   }
+  else if (key == "1") {
+    snapshotArmRotatedNearBird(); wave(); setTimeout(testWaveNearBird, 2100);
+  }
   else if (key == "r") {
     const nearTrader = getNearTrader();
     if (nearTrader) {
@@ -316,3 +342,8 @@ window.addEventListener("keydown", onKeydown);
 
 updateUI();
 draw();
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

@@ -18,8 +18,9 @@ function buyApple() {
   // - it is done inside updateUI() and draw() functions
   // - don't remove these functions from buyApple().
 
+  
 
-  statusMessage = "You bought an apple!";
+  statusMessage = "Trading is not implemented yet!";
   updateUI();
   draw();
 }

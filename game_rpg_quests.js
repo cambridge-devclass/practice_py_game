@@ -7,8 +7,9 @@ const quests = [
   { id: 4, description: "Sell dagger", complete: false },
   { id: 5, description: "Buy mushroom", complete: false },
   { id: 6, description: "Sell mushroom", complete: false },
-  { id: 7, description: "Talk to the bird", complete: false },
-  { id: 8, description: "Wave", complete: false },
+  { id: 7, description: "Wave to the bird", complete: false },
+  { id: 8, description: "Talk to the bird", complete: false },
+  { id: 9, description: "Sell mushrooms to citizen", complete: false },
 ];
 
 function saveQuestProgress() {
@@ -170,6 +171,22 @@ function testSell() {
     renderQuests();
   }
   // console.log('Tested sell:', type, quest);
+}
+
+let _armRotatedNearBird = false;
+
+function snapshotArmRotatedNearBird() {
+  if (distance(playerDraw, { x: birdX, y: birdY }) < 100) {
+    _armRotatedNearBird = true;
+  }
+}
+
+function testWaveNearBird() {
+  if (_armRotatedNearBird) {
+    quests[6].complete = true;
+    saveQuestProgress();
+    renderQuests();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

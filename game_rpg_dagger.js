@@ -20,7 +20,7 @@ function buyDagger() {
 
 
 
-  statusMessage = "You bought a dagger!";
+  statusMessage = "Trading is not implemented yet!";
   updateUI();
   draw();
 }
