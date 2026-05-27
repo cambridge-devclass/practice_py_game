@@ -1,7 +1,7 @@
 import tkinter as tk
 import math
 
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 900, 650
 BG_COLOR = "#9CAF88"  # sage green
 BG_COLOR = "#cae0a6"
 BG_COLOR = "#b2c88e"
@@ -20,8 +20,8 @@ images = {
 
 # ---- Player ----
 player = {
-    "x": 400,
-    "y": 350,
+    "x": 450,
+    "y": 400,
     "size": 20,
     "gold": 10,
     "apple": 0,
@@ -32,8 +32,8 @@ player_id = canvas.create_image(player["x"], player["y"], image=images["player"]
 
 # ---- Trader ----
 traders = [
-    {"type": "apple", "x": 250, "y": 200, "stock": 6},
-    {"type": "dagger", "x": 550, "y": 200, "stock": 4}
+    {"type": "apple", "x": 300, "y": 250, "stock": 6},
+    {"type": "dagger", "x": 600, "y": 250, "stock": 4}
 ]
 
 trader_ids = []
@@ -48,10 +48,10 @@ def draw_traders():
       if (dist < 130):
           root.title("Hello traveller")
           trader_id = canvas.create_rectangle(t["x"]-80, t["y"]-60, t["x"]+80, t["y"]+60, fill=TRADER_COLOR_OUTLINE, tags="traders")
-          trader_ids.append(trader_id)  
+          trader_ids.append(trader_id)
           canvas.tag_lower(trader_id)
-          return
-      root.title("") 
+      else:
+          root.title("")
 
 # ---- UI text ----
 info = canvas.create_text(10, 10, anchor="nw", font=("Arial", 12), fill="black")
