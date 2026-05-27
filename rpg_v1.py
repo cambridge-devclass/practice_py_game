@@ -63,6 +63,9 @@ def keypress(event):
           return
       root.title("No trader nearby")
 
+
+
+# you only need to change this section 
 # ---- Interaction ----
 def buy():
     global trader_stock, player_gold, player_apples
